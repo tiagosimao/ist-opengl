@@ -18,6 +18,9 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(libs/glfw-3.2.1)
 target_link_libraries (${APP_ID} glfw)
 
+add_subdirectory(libs/cgj-math)
+target_link_libraries (${APP_ID} cgj-math)
+
 find_package(OpenGL REQUIRED)
 target_link_libraries(${APP_ID} ${OPENGL_gl_LIBRARY})
 
