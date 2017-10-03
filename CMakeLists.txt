@@ -24,5 +24,14 @@ target_link_libraries (${APP_ID} cgj-math)
 find_package(OpenGL REQUIRED)
 target_link_libraries(${APP_ID} ${OPENGL_gl_LIBRARY})
 
+
+add_library(Catch INTERFACE)
+target_include_directories(Catch INTERFACE unit-tests)
+
+add_executable(main-tests unit-tests/main-tests.cpp)
+target_link_libraries(main-tests Catch)
+
+target_link_libraries (main-tests cgj-math)
+
 enable_testing()
-add_test(vectorTests tests)
+add_test(NAME vectorTests COMMAND main-tests)

@@ -1,5 +1,4 @@
 #include "spdlog/spdlog.h"
-#include "cgj-math/vec.hpp"
 
 #include "GLFW/glfw3.h"
 
@@ -126,8 +125,6 @@ void shutdown(int code)
 
 int main(int argc, char * argv[])
 {
-  Vec2 v2(0,0);
-  logger->info("Vec x: {}", v2.x);
 
   logger->info("Booting app");
   if(init()){

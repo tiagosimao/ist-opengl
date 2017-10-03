@@ -1,6 +1,6 @@
 set -e
-mkdir -p build
-cd build
+mkdir -p bin
+cd bin
 cmake ../
-make app test
+make all test
 cd ..
