@@ -146,3 +146,13 @@ Vec & Vec::proj(Vec on)
   d=on.d;
   return *this;
 }
+
+// Angle
+float Vec::angle(Vec &with)
+{
+  Vec aThis(*this);
+  Vec bThis(with);
+  float dot = aThis.dot(bThis);
+  float norms = aThis.norm() * bThis.norm();
+  return acos(dot/norms);
+}

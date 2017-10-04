@@ -38,6 +38,10 @@ class Vec
     // Cross product
     Vec & cross(Vec &with);
 
+    // Projection
     Vec & proj(Vec on);
+
+    // Angle
+    float angle(Vec &with);
 
 };

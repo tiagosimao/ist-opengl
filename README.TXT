@@ -32,6 +32,7 @@
     Completeness: an nD implementation would probably be an overkill as dynamically
       sized structures are more complex to implement and expensive to run.
       Also 4 dimensions should be the maximum required number for a 3D game engine (queternions over 3D space?)
+      Cross product will ignore the 4th dimension
 
   4.2) Publicly accessible fields
     Each of the vector values (a, b, c and d) are publicly available fields

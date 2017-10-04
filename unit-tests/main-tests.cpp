@@ -157,9 +157,24 @@ TEST_CASE( "Projection" ) {
 
   v3.proj(v4);
 
-  REQUIRE( v3.a-v4.a < 0.0001f);
-  REQUIRE( v3.b-v4.b < 0.0001f);
-  REQUIRE( v3.c-v4.c < 0.0001f);
-  REQUIRE( v3.d-v4.d < 0.0001f);
+  REQUIRE( Approx(v3.a) == v4.a );
+  REQUIRE( Approx(v3.b) == v4.b );
+  REQUIRE( Approx(v3.c) == v4.c );
+  REQUIRE( Approx(v3.d) == v4.d );
+
+}
+
+TEST_CASE( "Angle" ) {
+  Vec v1(1,0);
+  Vec v2(0,1);
+
+  float angle1 = v1.angle(v2);
+  REQUIRE( Approx(angle1) == M_PI/2 );
+
+  Vec v3(3,4,7);
+  Vec v4(1,-2,5);
+
+  float angle2 = v3.angle(v4);
+  REQUIRE( Approx(angle2) == 0.8805663586f);
 
 }
