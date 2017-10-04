@@ -49,3 +49,29 @@ TEST_CASE( "Sum" ) {
   REQUIRE( v2.d==0 );
 
 }
+
+TEST_CASE( "Scalar multiplication" ) {
+  Vec v1(3,2);
+  v1.scale(3);
+  REQUIRE( v1.a==9 );
+  REQUIRE( v1.b==6 );
+  REQUIRE( v1.c==0 );
+  REQUIRE( v1.d==0 );
+
+  v1.scale(1);
+  REQUIRE( v1.a==9 );
+  REQUIRE( v1.b==6 );
+  REQUIRE( v1.c==0 );
+  REQUIRE( v1.d==0 );
+
+}
+
+TEST_CASE( "dot product" ) {
+  Vec v1(4,-2);
+  Vec v2(3,-1);
+  REQUIRE( v1.dot(v2)==(4*3)+(-2*-1) );
+
+  Vec v3(3,2,7,-3);
+  Vec v4(-3,5,4,2);
+  REQUIRE( v3.dot(v4)==(3*-3)+(2*5)+(7*4)+(-3*2));
+}
