@@ -74,7 +74,7 @@ Vec & Vec::sum(float sumA, float sumB, float sumC, float sumD)
   return *this;
 }
 
-Vec & Vec::sum(Vec with)
+Vec & Vec::sum(Vec &with)
 {
   return this->sum(with.a, with.b, with.c, with.d);
 }
@@ -90,7 +90,7 @@ Vec & Vec::scale(float scale)
 }
 
 // DOT
-float Vec::dot(Vec with)
+float Vec::dot(Vec &with)
 {
   return a*with.a + b*with.b + c*with.c + d*with.d;
 }
@@ -120,4 +120,17 @@ Vec & Vec::normalize()
     d/=norm;
     return *this;
   }
+}
+
+// CROSS PRODUCT
+Vec & Vec::cross(Vec &with)
+{
+  float newA = this->b*with.c - this->c*with.b;
+  float newB = this->c*with.a - this->a*with.c;
+  float newC = this->a*with.b - this->b*with.a;
+  a = newA;
+  b = newB;
+  c = newC;
+  d = 0;
+  return *this;
 }

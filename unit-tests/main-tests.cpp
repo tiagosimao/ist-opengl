@@ -111,3 +111,27 @@ TEST_CASE( "Normalization" ) {
   REQUIRE( v1.c==6 );
   REQUIRE( v1.d==0 );
 }
+
+TEST_CASE( "cross product" ) {
+  Vec v1(2,3,4);
+  Vec v2(5,6,7);
+
+  Vec crossed(v1);
+  crossed.cross(v2);
+
+  REQUIRE( crossed.a==-3 );
+  REQUIRE( crossed.b==6 );
+  REQUIRE( crossed.c==-3 );
+  REQUIRE( crossed.d==0 );
+
+  REQUIRE( v1.a==2 );
+  REQUIRE( v1.b==3 );
+  REQUIRE( v1.c==4 );
+  REQUIRE( v1.d==0 );
+
+  REQUIRE( v2.a==5 );
+  REQUIRE( v2.b==6 );
+  REQUIRE( v2.c==7 );
+  REQUIRE( v2.d==0 );
+
+}

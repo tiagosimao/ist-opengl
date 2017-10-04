@@ -18,13 +18,13 @@ class Vec
     Vec & sum(float a, float b);
     Vec & sum(float a, float b, float c);
     Vec & sum(float a, float b, float c, float d);
-    Vec & sum(Vec with);
+    Vec & sum(Vec &with);
 
     // Scalar multiplication
     Vec & scale(float a);
 
     // Dot product
-    float dot(Vec with);
+    float dot(Vec &with);
 
     // Quadrance
     float quadrance();
@@ -34,5 +34,8 @@ class Vec
 
     // Normalize
     Vec & normalize();
+
+    // Cross product
+    Vec & cross(Vec &with);
 
 };
