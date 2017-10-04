@@ -134,3 +134,15 @@ Vec & Vec::cross(Vec &with)
   d = 0;
   return *this;
 }
+
+// Projection
+Vec & Vec::proj(Vec on)
+{
+  on.normalise();
+  on.scale(this->dot(on));
+  a=on.a;
+  b=on.b;
+  c=on.c;
+  d=on.d;
+  return *this;
+}

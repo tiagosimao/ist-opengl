@@ -48,7 +48,7 @@
       vector1.sum(3,3); // this increment the a and b values of vector1 by 3
     Performance: Although more error prone, having mutable objects allow for
       low memory footprint and minimise object allocation. This might be counter-intuitive
-      for operations like cross product or normalise.
+      for operations like cross product, normalise, projection, ...
 
   4.5) Method chaining
     Vector operations return the vector over which the operation occurred, allowing subsequent operations

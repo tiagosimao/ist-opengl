@@ -60,7 +60,7 @@ TEST_CASE( "Sum" ) {
 
 }
 
-TEST_CASE( "Scalar multiplication" ) {
+TEST_CASE( "Scalar Multiplication" ) {
   Vec v1(3,2);
   v1.scale(3);
   REQUIRE( v1.a==9 );
@@ -76,7 +76,7 @@ TEST_CASE( "Scalar multiplication" ) {
 
 }
 
-TEST_CASE( "dot product" ) {
+TEST_CASE( "Dot Product" ) {
   Vec v1(4,-2);
   Vec v2(3,-1);
   REQUIRE( v1.dot(v2)==(4*3)+(-2*-1) );
@@ -112,7 +112,7 @@ TEST_CASE( "Normalisation" ) {
   REQUIRE( v1.d==0 );
 }
 
-TEST_CASE( "cross product" ) {
+TEST_CASE( "Cross Product" ) {
   Vec v1(2,3,4);
   Vec v2(5,6,7);
 
@@ -133,5 +133,33 @@ TEST_CASE( "cross product" ) {
   REQUIRE( v2.b==6 );
   REQUIRE( v2.c==7 );
   REQUIRE( v2.d==0 );
+
+}
+
+TEST_CASE( "Projection" ) {
+  Vec v1(2,3,4);
+  Vec v2(1,0,0);
+
+  v1.proj(v2);
+
+  REQUIRE( v1.a==2 );
+  REQUIRE( v1.b==0 );
+  REQUIRE( v1.c==0 );
+  REQUIRE( v1.d==0 );
+
+  REQUIRE( v2.a==1 );
+  REQUIRE( v2.b==0 );
+  REQUIRE( v2.c==0 );
+  REQUIRE( v2.d==0 );
+
+  Vec v3(2,3,4);
+  Vec v4(2,3,4);
+
+  v3.proj(v4);
+
+  REQUIRE( v3.a-v4.a < 0.0001f);
+  REQUIRE( v3.b-v4.b < 0.0001f);
+  REQUIRE( v3.c-v4.c < 0.0001f);
+  REQUIRE( v3.d-v4.d < 0.0001f);
 
 }

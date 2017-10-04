@@ -38,4 +38,6 @@ class Vec
     // Cross product
     Vec & cross(Vec &with);
 
+    Vec & proj(Vec on);
+
 };
