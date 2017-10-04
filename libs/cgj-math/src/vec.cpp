@@ -107,8 +107,8 @@ float Vec::norm()
   return sqrt(quadrance());
 }
 
-// NORMALIZE
-Vec & Vec::normalize()
+// NORMALISE
+Vec & Vec::normalise()
 {
   float norm = this->norm();
   if(norm==0){

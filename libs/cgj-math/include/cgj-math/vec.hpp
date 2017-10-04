@@ -32,8 +32,8 @@ class Vec
     // Norm
     float norm();
 
-    // Normalize
-    Vec & normalize();
+    // Normalise
+    Vec & normalise();
 
     // Cross product
     Vec & cross(Vec &with);

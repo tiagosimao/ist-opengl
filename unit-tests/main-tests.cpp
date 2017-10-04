@@ -96,15 +96,15 @@ TEST_CASE( "Norm" ) {
   REQUIRE( v1.norm()==(float)sqrt(9+4+49+9));
 }
 
-TEST_CASE( "Normalization" ) {
+TEST_CASE( "Normalisation" ) {
   Vec v1(3,6,6);
-  Vec normalized(v1);
-  normalized.normalize();
+  Vec normalised(v1);
+  normalized.normalise();
 
-  REQUIRE( normalized.a==(float)(1./3) );
-  REQUIRE( normalized.b==(float)(2./3) );
-  REQUIRE( normalized.c==(float)(2./3) );
-  REQUIRE( normalized.d==0 );
+  REQUIRE( normalised.a==(float)(1./3) );
+  REQUIRE( normalised.b==(float)(2./3) );
+  REQUIRE( normalised.c==(float)(2./3) );
+  REQUIRE( normalised.d==0 );
 
   REQUIRE( v1.a==3 );
   REQUIRE( v1.b==6 );
