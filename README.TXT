@@ -20,6 +20,10 @@
   Implementation: libs/cgj-math/src/vec.cpp
   Tests: unit-tests/main-tests.cpp
 
+  A single class (Vec) was implemented.
+  The major focus was performance (low memory allocation + low instruction count)
+  and therefore a pure standard OOP approach was avoided, details bellow.
+
   4.1) Always four dimensions
     Overloaded constructors simplify usage by allowing instantiation of vectors with less dimensions
     Non-defined dimension's value defaults to zero
@@ -27,7 +31,7 @@
     Agility: Possible to run operations between vectors with different dimensions
     Completeness: an nD implementation would probably be an overkill as dynamically
       sized structures are more complex to implement and expensive to run.
-      Also 4 dimensions should be the maximum required number for a 3D game engine (queternions over 3D space)
+      Also 4 dimensions should be the maximum required number for a 3D game engine (queternions over 3D space?)
 
   4.2) Publicly accessible fields
     Each of the vector values (a, b, c and d) are publicly available fields

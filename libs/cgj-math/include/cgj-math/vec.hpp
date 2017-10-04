@@ -11,6 +11,7 @@ class Vec
     Vec(float a, float b);
     Vec(float a, float b, float c);
     Vec(float a, float b, float c, float d);
+    Vec(const Vec &copyFrom);
 
     // Sum with given values or vector
     Vec & sum(float a);
@@ -24,5 +25,14 @@ class Vec
 
     // Dot product
     float dot(Vec with);
+
+    // Quadrance
+    float quadrance();
+
+    // Norm
+    float norm();
+
+    // Normalize
+    Vec & normalize();
 
 };

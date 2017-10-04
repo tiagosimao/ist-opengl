@@ -1,4 +1,5 @@
 #include "../include/cgj-math/vec.hpp"
+#include <math.h>
 
 Vec::Vec()
 {
@@ -40,6 +41,14 @@ Vec::Vec(float a, float b, float c, float d)
   this->d=d;
 }
 
+Vec::Vec(const Vec &copyFrom)
+{
+  this->a=copyFrom.a;
+  this->b=copyFrom.b;
+  this->c=copyFrom.c;
+  this->d=copyFrom.d;
+}
+
 // SUM
 Vec & Vec::sum(float sumA)
 {
@@ -58,10 +67,10 @@ Vec & Vec::sum(float sumA, float sumB, float sumC)
 
 Vec & Vec::sum(float sumA, float sumB, float sumC, float sumD)
 {
-  this->a+=sumA;
-  this->b+=sumB;
-  this->c+=sumC;
-  this->d+=sumD;
+  a+=sumA;
+  b+=sumB;
+  c+=sumC;
+  d+=sumD;
   return *this;
 }
 
@@ -73,15 +82,42 @@ Vec & Vec::sum(Vec with)
 // SCALE
 Vec & Vec::scale(float scale)
 {
-  this->a*=scale;
-  this->b*=scale;
-  this->c*=scale;
-  this->d*=scale;
+  a*=scale;
+  b*=scale;
+  c*=scale;
+  d*=scale;
   return *this;
 }
 
 // DOT
 float Vec::dot(Vec with)
 {
-  return this->a*with.a+this->b*with.b+this->c*with.c+this->d*with.d;
+  return a*with.a + b*with.b + c*with.c + d*with.d;
+}
+
+// QUADRANCE
+float Vec::quadrance()
+{
+  return a*a + b*b + c*c + d*d;
+}
+
+// NORM
+float Vec::norm()
+{
+  return sqrt(quadrance());
+}
+
+// NORMALIZE
+Vec & Vec::normalize()
+{
+  float norm = this->norm();
+  if(norm==0){
+    return *this;
+  } else {
+    a/=norm;
+    b/=norm;
+    c/=norm;
+    d/=norm;
+    return *this;
+  }
 }

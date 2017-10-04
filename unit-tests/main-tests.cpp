@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "cgj-math/vec.hpp"
+#include <math.h>
 
 TEST_CASE( "Constructors" ) {
   Vec v0;
@@ -28,6 +29,15 @@ TEST_CASE( "Constructors" ) {
   REQUIRE( v4.b==76 );
   REQUIRE( v4.c==24 );
   REQUIRE( v4.d==31 );
+}
+
+TEST_CASE( "Assignment" ) {
+  Vec v1(55,76,24,31);
+  Vec v2(v1);
+  REQUIRE( v2.a==55 );
+  REQUIRE( v2.b==76 );
+  REQUIRE( v2.c==24 );
+  REQUIRE( v2.d==31 );
 }
 
 TEST_CASE( "Sum" ) {
@@ -74,4 +84,30 @@ TEST_CASE( "dot product" ) {
   Vec v3(3,2,7,-3);
   Vec v4(-3,5,4,2);
   REQUIRE( v3.dot(v4)==(3*-3)+(2*5)+(7*4)+(-3*2));
+}
+
+TEST_CASE( "Quadrance" ) {
+  Vec v1(3,2,7,-3);
+  REQUIRE( v1.quadrance()==9+4+49+9);
+}
+
+TEST_CASE( "Norm" ) {
+  Vec v1(3,2,7,-3);
+  REQUIRE( v1.norm()==(float)sqrt(9+4+49+9));
+}
+
+TEST_CASE( "Normalization" ) {
+  Vec v1(3,6,6);
+  Vec normalized(v1);
+  normalized.normalize();
+
+  REQUIRE( normalized.a==(float)(1./3) );
+  REQUIRE( normalized.b==(float)(2./3) );
+  REQUIRE( normalized.c==(float)(2./3) );
+  REQUIRE( normalized.d==0 );
+
+  REQUIRE( v1.a==3 );
+  REQUIRE( v1.b==6 );
+  REQUIRE( v1.c==6 );
+  REQUIRE( v1.d==0 );
 }
