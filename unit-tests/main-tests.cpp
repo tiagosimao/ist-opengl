@@ -99,7 +99,7 @@ TEST_CASE( "Norm" ) {
 TEST_CASE( "Normalisation" ) {
   Vec v1(3,6,6);
   Vec normalised(v1);
-  normalized.normalise();
+  normalised.normalise();
 
   REQUIRE( normalised.a==(float)(1./3) );
   REQUIRE( normalised.b==(float)(2./3) );
