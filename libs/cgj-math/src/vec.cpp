@@ -156,3 +156,29 @@ float Vec::angle(Vec &with)
   float norms = aThis.norm() * bThis.norm();
   return acos(dot/norms);
 }
+
+// Rotate
+Vec & Vec::rotate(Vec &rotation)
+{
+  Vec value(*this);
+  rotation.normalise();
+  float num12 = rotation.a + rotation.a;
+  float num2 = rotation.b + rotation.b;
+  float num = rotation.c + rotation.c;
+  float num11 = rotation.d * num12;
+  float num10 = rotation.d * num2;
+  float num9 = rotation.d * num;
+  float num8 = rotation.a * num12;
+  float num7 = rotation.a * num2;
+  float num6 = rotation.a * num;
+  float num5 = rotation.b * num2;
+  float num4 = rotation.b * num;
+  float num3 = rotation.c * num;
+  float num15 = ((value.a * ((1.f - num5) - num3)) + (value.b * (num7 - num9))) + (value.c * (num6 + num10));
+  float num14 = ((value.a * (num7 + num9)) + (value.b * ((1.f - num8) - num3))) + (value.c * (num4 - num11));
+  float num13 = ((value.a * (num6 - num10)) + (value.b * (num4 + num11))) + (value.c * ((1.f - num8) - num5));
+  a = num15;
+  b = num14;
+  c = num13;
+  return *this;
+}

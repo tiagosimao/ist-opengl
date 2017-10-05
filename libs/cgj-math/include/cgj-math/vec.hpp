@@ -44,4 +44,7 @@ class Vec
     // Angle
     float angle(Vec &with);
 
+    // Rotate
+    Vec & rotate(Vec &quaternion);
+
 };

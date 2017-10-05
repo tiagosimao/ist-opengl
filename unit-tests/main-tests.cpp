@@ -178,3 +178,56 @@ TEST_CASE( "Angle" ) {
   REQUIRE( Approx(angle2) == 0.8805663586f);
 
 }
+
+/**
+
+d           a       	  b        	  c        	  Description
+1           0	          0        	  0        	  Identity quaternion, no rotation
+0       	  1        	  0        	  0        	  180° turn around A axis
+0       	  0        	  1        	  0        	  180° turn around B axis
+0       	  0        	  0        	  1        	  180° turn around C axis
+sqrt(0.5)	  sqrt(0.5)	  0       	  0        	  90° rotation around A axis
+sqrt(0.5)	  0       	  sqrt(0.5)	  0        	  90° rotation around B axis
+sqrt(0.5)	  0       	  0        	  sqrt(0.5)	  90° rotation around C axis
+sqrt(0.5)	  -sqrt(0.5)  0       	  0        	  -90° rotation around A axis
+sqrt(0.5)	  0       	  -sqrt(0.5)  0        	  -90° rotation around B axis
+sqrt(0.5)  	0       	  0           -sqrt(0.5)  -90° rotation around C axis
+
+**/
+
+TEST_CASE( "Rotation" ) {
+  Vec v1(1,0);
+  Vec q1(0, 0, 0, 1);
+  v1.rotate(q1);
+  REQUIRE( v1.a==1 );
+  REQUIRE( v1.b==0 );
+  REQUIRE( v1.c==0 );
+  REQUIRE( v1.d==0 );
+
+  Vec v2(1,0);
+  Vec q2(0,1,0,0);
+  v2.rotate(q2);
+  REQUIRE( v2.a== -1);
+  REQUIRE( v2.b== 0);
+  REQUIRE( v2.c== 0);
+  REQUIRE( v2.d== 0);
+
+  // 90º around C
+  Vec v3(3,2,4);
+  Vec q3(0,0,1,1);
+  v3.rotate(q3);
+  REQUIRE( Approx(v3.a) == -2);
+  REQUIRE( Approx(v3.b) == 3);
+  REQUIRE( v3.c== 4);
+  REQUIRE( v3.d== 0);
+
+  // 30º around C
+  Vec v4(3,2,4);
+  Vec q4(0, 0, sin(M_PI/12), cos(M_PI/12));
+  v4.rotate(q4);
+  REQUIRE( Approx(v4.a) == 1.598076);
+  REQUIRE( Approx(v4.b) == 3.232051);
+  REQUIRE( v4.c== 4);
+  REQUIRE( v4.d== 0);
+
+}
