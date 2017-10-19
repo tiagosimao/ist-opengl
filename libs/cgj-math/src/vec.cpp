@@ -1,6 +1,5 @@
 #include "../include/cgj-math/vec.hpp"
 #include <math.h>
-#include <math.h>
 #include <iostream>
 
 Vec::Vec()

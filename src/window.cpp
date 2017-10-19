@@ -2,7 +2,7 @@
 #include "window.hpp"
 
 namespace window {
-  int wWidth = 640, wHeight = 480;
+  int wWidth = 400, wHeight = 400;
   GLFWwindow* window = NULL;
 
   static void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
@@ -12,7 +12,7 @@ namespace window {
         glfwSetWindowShouldClose(win, GLFW_TRUE);
       }
   }
-  
+
   bool init()
   {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

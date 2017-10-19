@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 
 project (cgj-math)
 
-add_library(cgj-math src/vec.cpp include/cgj-math/vec.hpp)
+add_library(cgj-math src/vec.cpp include/cgj-math/vec.hpp src/mat.cpp include/cgj-math/mat.hpp)
 
 target_include_directories(cgj-math PUBLIC
                            $<BUILD_INTERFACE:${cgj-math_SOURCE_DIR}/include>)

@@ -1,5 +1,5 @@
 namespace draw {
-  int init();
-  int shutdown();
+  bool init();
+  bool shutdown();
   void draw();
 }

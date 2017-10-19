@@ -1,6 +1,8 @@
 #include "spdlog/spdlog.h"
 #include "GL/glew.h"
 #include "draw.hpp"
+#include "cgj-math/mat.hpp"
+#include <math.h>
 
 auto drawLogger = spdlog::stdout_color_mt("draw");
 
@@ -110,9 +112,9 @@ typedef struct
 
 const Vertex Vertices[] =
 {
-	{{ 0.25f, 0.25f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f }},
-	{{ 0.75f, 0.25f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }},
-	{{ 0.50f, 0.75f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f }}
+	{{ -0.5f, -0.25f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f }},
+	{{ 0.5f, -0.25f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }},
+	{{ 0.0f, 0.25f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f }}
 };
 
 const GLubyte Indices[] =
@@ -201,50 +203,110 @@ void setupGLEW()
 
 typedef GLfloat Matrix[16];
 
-const Matrix I = {
-	1.0f,  0.0f,  0.0f,  0.0f,
+Matrix I = {
+	1.0f,  0.0f,  0.0f,  -1.0f,
 	0.0f,  1.0f,  0.0f,  0.0f,
 	0.0f,  0.0f,  1.0f,  0.0f,
 	0.0f,  0.0f,  0.0f,  1.0f
 }; // Row Major (GLSL is Column Major)
 
-const Matrix M = {
-	1.0f,  0.0f,  0.0f, -1.0f,
-	0.0f,  1.0f,  0.0f, -1.0f,
+float M[16] = {
+	1.0f,  0.0f,  0.0f, 0.0f,
+	0.0f,  1.0f,  0.0f, 1.0f,
 	0.0f,  0.0f,  1.0f,  0.0f,
 	0.0f,  0.0f,  0.0f,  1.0f
 }; // Row Major (GLSL is Column Major)
 
+Matrix N = {
+	0.5f,  0.0f,  0.0f, 0.0f,
+	0.0f,  0.5f,  0.0f, -0.5f,
+	0.0f,  0.0f,  0.5f,  0.0f,
+	0.0f,  0.0f,  0.0f,  1.0f
+}; // Row Major (GLSL is Column Major)
+
+Matrix O = {
+	0.5f,  0.0f,  0.0f, 1.0f,
+	0.0f,  0.5f,  0.0f, 1.0f,
+	0.0f,  0.0f,  0.5f,  0.0f,
+	0.0f,  0.0f,  0.0f,  1.0f
+}; // Row Major (GLSL is Column Major)
+
+
 
 void draw::draw()
 {
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glBindVertexArray(VaoId);
 	glUseProgram(ProgramId);
 
-	glUniformMatrix4fv(UniformId, 1, GL_TRUE, I);
+  Mat t1;
+  t1=t1.scale(1.0f);
+  t1=t1.rotZ(-M_PI/2);
+  t1=t1.move(-0.25f,0.0f,0.0f);
+	glUniformMatrix4fv(UniformId, 1, GL_TRUE, t1.toGl());
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
 
+  Mat t2;
+  t2=t2.scale(1.0f);
+  t2=t2.rotZ(M_PI);
+  t2=t2.move(0.0f,0.25f,0.0f);
+  glUniformMatrix4fv(UniformId, 1, GL_TRUE, t2.toGl());
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
+
+  Mat t3;
+  t3=t3.rotZ(M_PI/2);
+  t3=t3.scale(0.5f);
+  t3=t3.move(0.75f,0.5f,0.0f);
+  glUniformMatrix4fv(UniformId, 1, GL_TRUE, t3.toGl());
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
+
+  Mat t4;
+  t4=t4.move(0.375f,-0.375f,0.0f);
+  t4=t4.scale(0.7f);
+  t4=t4.rotZ(-3.0f*M_PI/4.0f);
+
+  glUniformMatrix4fv(UniformId, 1, GL_TRUE, t4.toGl());
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
+
+
+  Mat t5;
+  //t5=t5.rotZ(-3.0f*M_PI/4.0f);
+  t5=t5.scale(0.5f);
+  t5=t5.move(0.0f,-0.25f,0.0f);
+  glUniformMatrix4fv(UniformId, 1, GL_TRUE, t5.toGl());
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
+
+
+/*
 	glUniformMatrix4fv(UniformId, 1, GL_TRUE, M);
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
 
+  glUniformMatrix4fv(UniformId, 1, GL_TRUE, N);
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
+
+  glUniformMatrix4fv(UniformId, 1, GL_TRUE, O);
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, (GLvoid*)0);
+*/
 	glUseProgram(0);
 	glBindVertexArray(0);
 
 	checkOpenGLError("ERROR: Could not draw scene.");
 }
 
-int draw::init()
+bool draw::init()
 {
   setupGLEW();
   setupOpenGL();
   createShaderProgram();
 	createBufferObjects();
+  return true;
 }
 
-int draw::shutdown()
+bool draw::shutdown()
 {
   destroyShaderProgram();
 	destroyBufferObjects();
+  return true;
 }

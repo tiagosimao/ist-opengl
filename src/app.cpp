@@ -14,11 +14,6 @@
 
 auto logger = spdlog::stdout_color_mt("main");
 
-static void error_callback(int error, const char* description)
-{
-    logger->info("Error ({}) {}", error, description);
-}
-
 void loop()
 {
   int frameCount = 0, width, height;
@@ -42,13 +37,11 @@ void loop()
   }
 }
 
-int init()
+bool init()
 {
-  int result = glfwInit();
-  glfwSetErrorCallback(error_callback);
-	window::init();
+  return glfwInit() &&
+	window::init() &&
 	draw::init();
-  return result;
 }
 
 void shutdown(int code)
@@ -62,7 +55,7 @@ void shutdown(int code)
 
 int main(int argc, char * argv[])
 {
-  logger->info("Booting app");
+  logger->info("Booting app with {} arguments", argc -1);
   if(init()){
     logger->info("App is running");
     loop();
