@@ -1,5 +1,7 @@
 #include "../include/cgj-math/vec.hpp"
 #include <math.h>
+#include <math.h>
+#include <iostream>
 
 Vec::Vec()
 {
@@ -112,7 +114,7 @@ Vec & Vec::normalise()
 {
   float norm = this->norm();
   if(norm==0){
-    return *this;
+    throw std::string("Can't normalise a null vector");
   } else {
     a/=norm;
     b/=norm;

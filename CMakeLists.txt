@@ -18,12 +18,21 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(libs/glfw-3.2.1)
 target_link_libraries (${APP_ID} glfw)
 
+add_subdirectory(libs/glew-2.1.0/build/cmake)
+target_link_libraries (${APP_ID} glew)
+
 add_subdirectory(libs/cgj-math)
 target_link_libraries (${APP_ID} cgj-math)
 
 find_package(OpenGL REQUIRED)
 target_link_libraries(${APP_ID} ${OPENGL_gl_LIBRARY})
 
+
+find_package(GLEW REQUIRED)
+if (GLEW_FOUND)
+    include_directories(${GLEW_INCLUDE_DIRS})
+    link_libraries(${GLEW_LIBRARIES})
+endif()
 
 add_library(Catch INTERFACE)
 target_include_directories(Catch INTERFACE unit-tests)

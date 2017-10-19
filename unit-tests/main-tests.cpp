@@ -2,6 +2,56 @@
 #include "catch.hpp"
 #include "cgj-math/vec.hpp"
 #include <math.h>
+#include "spdlog/spdlog.h"
+
+auto logger = spdlog::stdout_color_mt("main");
+
+void calc(Vec view, Vec up)
+{
+  logger->info("view=({},{},{}), up=({},{},{})",view.a,view.b,view.c,up.a,up.b,up.c);
+  if(up.angle(view)==0)
+  {
+    logger->info("\tup and view are collinear... ignoring\n");
+    return;
+  }
+
+  Vec v(view);
+  v.normalise();
+
+
+  Vec w(up);
+  w.cross(v).normalise();
+
+
+  Vec u(v);
+  u.cross(w);
+
+  logger->info("\tv=({},{},{})",v.a,v.b,v.c);
+  logger->info("\tu=({},{},{})",u.a,u.b,u.c);
+  logger->info("\tw=({},{},{})\n",w.a,w.b,w.c);
+}
+
+/*
+int main()
+{
+    Vec v1(1,0,0);
+    Vec v2(0,2,0);
+    Vec v3(0,0,3);
+
+    calc(v1, v1);
+    calc(v1, v2);
+    calc(v1, v3);
+
+    calc(v2, v1);
+    calc(v2, v2);
+    calc(v2, v3);
+
+    calc(v3, v1);
+    calc(v3, v2);
+    calc(v3, v3);
+
+}*/
+
 
 TEST_CASE( "Constructors" ) {
   Vec v0;
@@ -229,5 +279,53 @@ TEST_CASE( "Rotation" ) {
   REQUIRE( Approx(v4.b) == 3.232051);
   REQUIRE( v4.c== 4);
   REQUIRE( v4.d== 0);
+
+}
+
+
+void testViewUp(Vec view, Vec up, int va, int vb, int vc, int ua, int ub, int uc, int wa, int wb, int wc)
+{
+  Vec v(view);
+  v.normalise();
+
+  Vec w(up);
+  w.cross(v);
+  if(w.norm()==0){
+    REQUIRE_THROWS( w.normalise() );
+    return;
+  } else {
+    w.normalise();
+  }
+
+  Vec u(v);
+  u.cross(w);
+
+  REQUIRE( v.a == va );
+  REQUIRE( v.b == vb );
+  REQUIRE( v.c == vc );
+
+  REQUIRE( u.a == ua );
+  REQUIRE( u.b == ub );
+  REQUIRE( u.c == uc );
+
+  REQUIRE( w.a == wa );
+  REQUIRE( w.b == wb );
+  REQUIRE( w.c == wc );
+}
+
+TEST_CASE( "view+up" ) {
+  Vec v1(1,0,0);
+  Vec v2(0,2,0);
+  Vec v3(0,0,3);
+
+  testViewUp(v1,v1,0,0,0,0,0,0,0,0,0);
+  testViewUp(v1,v2,1,0,0,0,1,0,0,0,-1);
+  testViewUp(v1,v3,1,0,0,0,0,1,0,1,0);
+  testViewUp(v2,v1,0,1,0,1,0,0,0,0,1);
+  testViewUp(v2,v2,0,0,0,0,0,0,0,0,0);
+  testViewUp(v2,v3,0,1,0,0,0,1,-1,0,0);
+  testViewUp(v3,v1,0,0,1,1,0,0,0,-1,0);
+  testViewUp(v3,v2,0,0,1,0,1,0,1,0,0);
+  testViewUp(v3,v3,0,0,0,0,0,0,0,0,0);
 
 }
