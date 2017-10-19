@@ -4,9 +4,11 @@ set(APP_ID cgj)
 
 project (${APP_ID})
 
-add_executable (${APP_ID} src/app.cpp)
+file(GLOB_RECURSE mainSources "src/*.cpp")
+add_executable (${APP_ID} ${mainSources})
 
 include_directories("include")
+include_directories("src")
 INCLUDE(FindOpenGL)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wshadow -Wextra -pedantic -std=c++11")
