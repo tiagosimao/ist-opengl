@@ -8,6 +8,7 @@ file(GLOB_RECURSE mainSources "src/*.cpp")
 add_executable (${APP_ID} ${mainSources})
 
 include_directories("include")
+include_directories("libs/glew-2.1.0/include")
 include_directories("src")
 INCLUDE(FindOpenGL)
 
@@ -16,6 +17,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wshadow -Wextra -pedantic -std=c+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
 
 add_subdirectory(libs/glfw-3.2.1)
 target_link_libraries (${APP_ID} glfw)
@@ -29,12 +31,10 @@ target_link_libraries (${APP_ID} cgj-math)
 find_package(OpenGL REQUIRED)
 target_link_libraries(${APP_ID} ${OPENGL_gl_LIBRARY})
 
+set(GLEW_LIBRARY, "/bin/lib")
 
-find_package(GLEW REQUIRED)
-if (GLEW_FOUND)
-    include_directories(${GLEW_INCLUDE_DIRS})
-    link_libraries(${GLEW_LIBRARIES})
-endif()
+#include_directories(${GLEW_INCLUDE_DIRS})
+#link_libraries(${GLEW_LIBRARIES})
 
 add_library(Catch INTERFACE)
 target_include_directories(Catch INTERFACE unit-tests)
