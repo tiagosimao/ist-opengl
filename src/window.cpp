@@ -1,5 +1,6 @@
 #include "GLFW/glfw3.h"
 #include "window.hpp"
+#include "draw.hpp";
 
 namespace window {
   int wWidth = 400, wHeight = 400;
@@ -7,10 +8,11 @@ namespace window {
 
   static void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
   {
-      if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-      {
-        glfwSetWindowShouldClose(win, GLFW_TRUE);
-      }
+    draw::keyPressed(key,action);
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+      glfwSetWindowShouldClose(win, GLFW_TRUE);
+    }
   }
 
   bool init()
@@ -49,6 +51,11 @@ namespace window {
   void getSize(int *width,int *height)
   {
     glfwGetFramebufferSize(window,width,height);
+  }
+
+  void getCursorPos(double * xPos, double * yPos)
+  {
+    glfwGetCursorPos(window,xPos,yPos);
   }
 
   void swapBuffers()

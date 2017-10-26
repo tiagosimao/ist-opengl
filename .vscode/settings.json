@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "cmath": "cpp",
+        "hashtable": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
+    }
+}

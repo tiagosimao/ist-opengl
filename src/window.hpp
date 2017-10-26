@@ -5,4 +5,5 @@ namespace window {
   void getSize(int *width,int *height);
   void swapBuffers();
   void setTitle(const char *title);
+  void getCursorPos(double * xpos, double * ypos);
 }

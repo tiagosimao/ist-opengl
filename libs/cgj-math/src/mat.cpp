@@ -29,6 +29,26 @@ Mat& Mat::move(float x, float y, float z)
   return *this;
 }
 
+Mat & Mat::set(float values[16])
+{
+  for(int i=0;i<16;++i)
+  {
+    this->m[i]=values[i];
+  }
+  return *this;
+}
+
+Mat & Mat::set(int col, int row, float value)
+{
+  this->m[col + 4 * row] = value;
+  return *this;
+}
+
+float Mat::at(int col, int row)
+{
+  return this->m[col + 4 * row];
+}
+
 Mat Mat::mul(Mat &with)
 {
   Mat result;

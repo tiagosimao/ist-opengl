@@ -134,8 +134,11 @@ bool Shader::init()
   }
   shaderLogger->info("Linked shader program");
 
-  shaderLogger->info("Binding uniforms");
-	this->uTransformMatrixId = glGetUniformLocation(this->ProgramId, "Matrix");
+	shaderLogger->info("Binding uniforms");
+	this->uProjectionMat = glGetUniformLocation(this->ProgramId, "projectionMat");
+	this->uViewMat = glGetUniformLocation(this->ProgramId, "viewMat");
+	this->uModelMat = glGetUniformLocation(this->ProgramId, "modelMat");	
+	
   this->uColor = glGetUniformLocation(this->ProgramId, "uColor");
 
   return true;

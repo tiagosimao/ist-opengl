@@ -9,20 +9,19 @@
 
 #include <sstream>
 #include <iostream>
-#include <chrono>
-#include <thread>
 
 auto logger = spdlog::stdout_color_mt("main");
 
 void loop()
 {
   int frameCount = 0, width, height;
-  double lastTime = glfwGetTime();
+  double lastTime = glfwGetTime(), mouseX, mouseY;
   while (!window::shouldClose())
   {
-		window::getSize(&width, &height);
+    window::getSize(&width, &height);
+    window::getCursorPos(&mouseX,&mouseY);
     glViewport(0, 0, width, height);
-    draw::draw();
+    draw::draw(width, height, mouseX, mouseY);
 		window::swapBuffers();
     glfwPollEvents();
     ++frameCount;

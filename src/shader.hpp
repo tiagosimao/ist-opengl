@@ -5,7 +5,7 @@
 class Shader {
   public:
     GLuint VertexShaderId, FragmentShaderId, ProgramId;
-    GLint uTransformMatrixId, uColor;
+    GLint uModelMat, uViewMat, uProjectionMat, uColor;
     Shader(char const * vertexShaderFile, char const * fragmentShaderFile);
     bool init();
     bool shutdown();

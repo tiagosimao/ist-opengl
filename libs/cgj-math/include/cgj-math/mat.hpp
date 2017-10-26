@@ -22,5 +22,11 @@ class Mat
 
     Mat rotZ(float angle);
 
+    Mat & set(float values[16]);
+
+    Mat & set(int col, int row, float value);
+
+    float at(int col, int row);
+
     float * toGl();
 };
